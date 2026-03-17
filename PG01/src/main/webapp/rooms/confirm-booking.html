@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm Booking</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f5f6fa;
+margin:0;
+padding:0;
+}
+
+header{
+background:#4a3aff;
+color:white;
+padding:20px;
+text-align:center;
+font-size:22px;
+}
+
+.booking-container{
+width:600px;
+margin:40px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-top:15px;
+}
+
+input, textarea{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+.payment-options{
+margin-top:25px;
+}
+
+.payment-box{
+display:block;
+background:#eef0ff;
+padding:15px;
+border-radius:10px;
+margin-top:12px;
+cursor:pointer;
+font-size:16px;
+transition:0.3s;
+}
+
+.payment-box:hover{
+background:#4a3aff;
+color:white;
+}
+
+.payment-box input{
+margin-right:10px;
+}
+
+.qr-section{
+text-align:center;
+margin-top:20px;
+}
+
+button{
+margin-top:25px;
+width:100%;
+padding:14px;
+background:#4a3aff;
+border:none;
+color:white;
+font-size:18px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#3728d9;
+}
+
+.room-details{
+background:#f1f3ff;
+padding:15px;
+border-radius:8px;
+margin-bottom:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+Confirm Your Booking
+</header>
+
+<div class="booking-container">
+
+<div id="roomDetails" class="room-details"></div>
+
+<form action="/PG01/bookRoom" method="post" enctype="multipart/form-data">
+
+<input type="hidden" name="room_id" id="roomId">
+
+<label>Customer Full Name:</label>
+<input type="text" name="customer_name" required>
+
+<label>Phone Number:</label>
+<input type="text" name="phone" required>
+
+<label>Email Address:</label>
+<input type="email" name="email">
+
+<label>Address:</label>
+<textarea name="address"></textarea>
+
+<label>Check-In Date:</label>
+<input type="date" name="check_in_date" required>
+
+<label>Check-Out Date:</label>
+<input type="date" name="check_out_date" required>
+
+<label>Upload ID Proof:</label>
+<input type="file" name="id_proof" id="id_proof" required>
+
+<div class="payment-options">
+
+<h3>Payment Options</h3>
+
+<label class="payment-box">
+<input type="radio" name="payment_method" value="GooglePay">
+Google Pay
+</label>
+
+<label class="payment-box">
+<input type="radio" name="payment_method" value="PhonePe">
+PhonePe
+</label>
+
+<label class="payment-box">
+<input type="radio" name="payment_method" value="Paytm">
+Paytm
+</label>
+
+<label class="payment-box">
+<input type="radio" name="payment_method" value="NetBanking">
+Net Banking
+</label>
+
+</div>
+
+<h3 style="margin-top:25px;">UPI Payment</h3>
+
+<p>Scan the QR code and complete the payment.</p>
+
+<div class="qr-section">
+<a href="../images/qr.jpeg" target="_blank">
+<img src="../images/qr.jpeg" width="200" alt="UPI QR Code">
+</a>
+</div>
+
+<label>Enter UPI Transaction ID:</label>
+<input type="text" name="transaction_id" required>
+
+<button type="submit">Confirm Booking</button>
+
+</form>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const roomId = params.get("roomId");
+
+document.getElementById("roomId").value = roomId;
+
+fetch(`/PG01/roomDetails?id=${roomId}`)
+.then(res => res.json())
+.then(room => {
+
+document.getElementById("roomDetails").innerHTML =
+"<h3>Room #" + room.roomNumber + "</h3>" +
+"<p><strong>Type:</strong> " + room.roomType + "</p>" +
+"<p><strong>Price:</strong> ₹" + room.price + "</p>";
+
+});
+
+</script>
+
+</body>
+</html>

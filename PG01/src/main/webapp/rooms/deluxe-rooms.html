@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deluxe Rooms</title>
+  <link rel="stylesheet" href="../css/rstyle.css">
+</head>
+<body>
+  <header>
+    <h1>Deluxe Rooms</h1>
+  </header>
+
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Room Number</th>
+          <th>Type</th>
+          <th>Available</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="roomTableBody">
+        <!-- JS adds rows here -->
+      </tbody>
+    </table>
+  </section>
+
+  <script>
+    // Fetch Deluxe room data from servlet
+    fetch('../rooms?type=Deluxe')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('roomTableBody');
+        data.forEach(room => {
+          const row = document.createElement('tr');
+
+          row.innerHTML = `
+            <td>${room.roomNumber}</td>
+            <td>${room.roomType}</td>
+            <td class="${room.isAvailable ? 'available' : 'unavailable'}">
+              ${room.isAvailable ? 'Yes' : 'No'}
+            </td>
+            <td>₹${room.price}</td>
+            <td>
+              ${room.isAvailable
+                ? `<a href="confirm-booking.html?roomId=${room.id}">Book</a>`
+                : `<p>Booked by: ${room.bookedBy}</p>`}
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error loading Deluxe rooms:', error));
+  </script>
+</body>
+</html>

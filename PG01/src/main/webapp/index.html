@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombify PG</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+         <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+            <a href="index.html" class="logo"> Welcome to your ZOMBIFY PG </a>
+           
+            <ul class="nav-links">
+                <!-- Always point to real files or servlet URLs -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rooms/rooms.html">View Rooms</a></li>
+                <li><a href="admin/admin-login.html">Admin Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="intro">
+        <h2>Welcome to Zombify PG</h2>
+        <p>Your ideal place for comfortable and affordable living.</p>
+		<a href="rooms/rooms.html">View Available Rooms</a>
+    </section>
+
+    <!-- Room Details Section with Cards -->
+    <section class="room-details">
+        <h2>Our Features</h2>
+        <div class="cards-container">
+            <!-- Room Card 1 -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-bed"></i>
+				</div>
+                <h3>Comfortable Rooms</h3>
+                <p>Spacious and fully furnished rooms with essential amenities.</p>
+            </div>
+
+            <!-- Room Card 2 -->
+            <div class="card">
+                <div class="card-icon">
+                   <i class="fas fa-utensils"></i>
+                </div>
+                 <h3>Food Available</h3>
+                <p>Meals available for all residents at affordable prices.</p>
+            </div>
+
+            <!-- Room Card 3 -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                 <h3>Free Wi-Fi</h3>
+                <p>High-speed internet is available throughout the premises.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section with Box Icons -->
+    <section class="social-media">
+        <h2>Connect with Us</h2>
+        <div class="social-box-container">
+            <!-- Instagram -->
+            <div class="social-box">
+                <a href="https://instagram.com" target="_blank" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+            </div>
+
+            <!-- Gmail -->
+            <div class="social-box">
+                <a href="mailto:yourmail@gmail.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Gmail</span>
+                </a>
+            </div>
+
+            <!-- Facebook -->
+            <div class="social-box">
+                <a href="https://facebook.com" target="_blank" class="social-link">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </a>
+            </div>
+
+            <!-- Twitter -->
+            <div class="social-box">
+                <a href="https://twitter.com" target="_blank" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

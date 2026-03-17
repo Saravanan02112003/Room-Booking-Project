@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="en">
+<head><meta charset="UTF-8">
+<title>Admin Dashboard</title><style>
+
+body{
+font-family:Arial;
+background:#f5f6fa;
+}
+
+h1{
+text-align:center;
+margin-top:20px;
+}
+
+table{
+width:90%;
+margin:30px auto;
+border-collapse:collapse;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+th{
+background:#4a3aff;
+color:white;
+padding:10px;
+}
+
+td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+button{
+padding:6px 12px;
+cursor:pointer;
+border:none;
+border-radius:4px;
+}
+
+.verify-btn{
+background:green;
+color:white;
+}
+
+.reject-btn{
+background:#ff3b3b;
+color:white;
+}
+
+.view-btn{
+background:#4a3aff;
+color:white;
+}
+
+.delete-btn{
+background:red;
+color:white;
+}
+
+.edit-btn{
+background:orange;
+color:white;
+}
+
+</style></head><body><h1>Admin Dashboard - Bookings</h1><table id="bookingsTable"><thead><tr>
+<th>ID</th>
+<th>Room ID</th>
+<th>Customer</th>
+<th>Check-In</th>
+<th>Check-Out</th>
+<th>ID Proof</th>
+<th>Verify</th>
+<th>Reject</th>
+<th>Actions</th>
+</tr></thead><tbody></tbody></table><script>
+
+async function loadBookings(){
+
+const res = await fetch("/PG01/adminBookings");
+
+const data = await res.json();
+
+const tbody = document.querySelector("#bookingsTable tbody");
+
+tbody.innerHTML = data.map(b => `
+
+<tr>
+
+<td>${b.id}</td>
+<td>${b.roomId}</td>
+<td>${b.customerName}</td>
+
+<td>${b.checkInDate}</td>
+<td>${b.checkOutDate}</td>
+
+<td>
+<a href="/PG01/viewFile?id=${b.id}" target="_blank">
+<button class="view-btn">View ID</button>
+</a>
+</td>
+
+<td>
+
+${!b.confirmed ? 
+`<button class="verify-btn" onclick="verifyID(${b.id})">
+Verify
+</button>` 
+: '✔'}
+
+</td>
+
+<td>
+
+${!b.confirmed ? 
+`<button class="reject-btn" onclick="rejectBooking(${b.id})">
+Reject
+</button>` 
+: '-'}
+
+</td>
+
+<td>
+
+<button class="edit-btn" onclick="editBooking(${b.id})">
+Edit
+</button>
+
+<button class="delete-btn" onclick="deleteBooking(${b.id})">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`).join("");
+
+}
+
+function verifyID(id){
+
+fetch(`/PG01/verifyBooking`,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+
+body:`id=${id}`
+
+})
+.then(response => {
+
+if(response.ok){
+
+alert("Booking Confirmed and Email Sent!");
+loadBookings();
+
+}else{
+
+alert("Verification Failed");
+
+}
+
+})
+.catch(error => {
+
+alert("Server Error");
+
+});
+
+}
+
+function rejectBooking(id){
+
+fetch(`/PG01/rejectBooking`,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+
+body:`id=${id}`
+
+})
+.then(response => {
+
+if(response.ok){
+
+alert("Booking Rejected and Email Sent!");
+loadBookings();
+
+}else{
+
+alert("Rejection Failed");
+
+}
+
+})
+.catch(error => {
+
+alert("Server Error");
+
+});
+
+}
+
+async function deleteBooking(id){
+
+if(!confirm("Delete this booking?")) return;
+
+const res = await fetch(`/PG01/deleteBooking?id=${id}`,{
+method:"POST"
+});
+
+if(res.ok){
+
+alert("Deleted successfully!");
+loadBookings();
+
+}
+
+}
+
+function editBooking(id){
+
+const newDate = prompt("Enter new Check-Out Date (YYYY-MM-DD)");
+
+if(!newDate) return;
+
+fetch(`/PG01/updateBooking`,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
+
+body:`id=${id}&check_out_date=${newDate}`
+
+}).then(()=>{
+
+alert("Booking updated");
+loadBookings();
+
+});
+
+}
+
+loadBookings();
+
+</script></body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm Booking</title>
+  <link rel="stylesheet" href="../css/rstyle.css">
+</head>
+<body>
+  <header>
+    <h1>Confirm Your Booking</h1>
+  </header>
+
+  <section class="booking-section">
+    <div id="roomDetails"></div>
+
+    <form id="bookingForm">
+      <label>Customer Name:</label>
+      <input type="text" name="customer_name" required><br>
+
+      <label>Check-In Date:</label>
+      <input type="date" name="check_in_date" required><br>
+
+      <label>Check-Out Date:</label>
+      <input type="date" name="check_out_date" required><br>
+
+      <input type="hidden" name="room_id" id="roomId">
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const roomId = params.get("roomId");
+    document.getElementById("roomId").value = roomId;
+
+    // Fetch room details
+    fetch(`../roomDetails?id=${roomId}`)
+      .then(response => response.json())
+      .then(room => {
+        document.getElementById("roomDetails").innerHTML = `
+          <h3>Room #${room.roomNumber}</h3>
+          <p>Type: ${room.roomType}</p>
+          <p>Price: ₹${room.price}</p>
+        `;
+      });
+
+    // Handle form submit
+    document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const response = await fetch("../bookRoom", {
+        method: "POST",
+        body: formData
+      });
+      if (response.ok) {
+        alert("Waiting for Confirmation!");
+        window.location.href = "../index.html";
+      } else {
+        alert("Booking failed!");
+      }
+    });
+  </script>
+</body>
+</html>

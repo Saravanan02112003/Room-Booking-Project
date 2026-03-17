@@ -1,0 +1,187 @@
+/* ===== Base Page Styles ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #f8f9fa, #e3f2fd);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* ===== Header ===== */
+header {
+  background: #0077b6;
+  color: white;
+  text-align: center;
+  padding: 1.5rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+/* ===== Table Section ===== */
+section {
+  margin: 3rem auto;
+  width: 90%;
+  max-width: 1000px;
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Table Styling ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+thead {
+  background: #0077b6;
+  color: white;
+}
+
+thead th {
+  padding: 0.9rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #f1f9ff;
+}
+
+tbody td {
+  padding: 0.8rem;
+}
+
+/* ===== Room Availability Colors ===== */
+.available {
+  color: green;
+  font-weight: 600;
+}
+
+.unavailable {
+  color: red;
+  font-weight: 600;
+}
+
+/* ===== Booking Links ===== */
+a {
+  color: white;
+  background: #0077b6;
+  padding: 6px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  background: #005f99;
+}
+
+/* ===== "Booked by" text ===== */
+td p {
+  margin: 0;
+  font-style: italic;
+  color: #666;
+}
+
+/* ===== For All-Rooms (cards view) ===== */
+.room-details {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.room-details h2 {
+  font-size: 1.8rem;
+  color: #005f99;
+  margin-bottom: 2rem;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  width: 300px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-top: 6px solid transparent;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Room Type Color Borders ===== */
+.ac-room { border-top-color: #0077b6; }
+.non-ac-room { border-top-color: #00b4d8; }
+.deluxe-room { border-top-color: #48cae4; }
+
+/* ===== Card Content ===== */
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #0077b6;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  background: #0077b6;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: #005f99;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 900px) {
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  section {
+    width: 95%;
+    padding: 1rem;
+  }
+}
